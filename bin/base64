@@ -1,0 +1,47 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+if ('cli' !== \PHP_SAPI) {
+    exit(1);
+}
+
+require dirname(__DIR__).'/vendor/autoload.php';
+
+use YB\Base64\Base64;
+
+$command = (string) ($argv[1] ?? '');
+$content = $argv[2] ?? null;
+$variant = $argv[3] ?? null;
+
+if (null !== $variant) {
+    $variant = (int) $variant;
+}
+
+try {
+    echo match ($command) {
+        '' => <<<'TEXT'
+Available commands:
+    encode [CONTENT]
+    decode [CONTENT]
+    encode_with_variant [CONTENT] [VARIANT]
+    decode_with_variant [CONTENT] [VARIANT]
+    encode_urlsafe [CONTENT]
+    decode_urlsafe [CONTENT]
+TEXT,
+        'encode' => Base64::encode($content),
+        'decode' => Base64::decode($content),
+        'encode_with_variant' => Base64::encode($content, $variant),
+        'decode_with_variant' => Base64::decode($content, $variant),
+        'encode_urlsafe' => Base64::encodeUrlsafe($content),
+        'decode_urlsafe' => Base64::decodeUrlsafe($content),
+        default => sprintf('Command "%s" not found', $command),
+    };
+} catch (\Throwable $e) {
+    echo sprintf('Error occurred: %s', $e->getMessage()), "\n";
+
+    exit(1);
+}
+
+echo "\n";
