@@ -81,7 +81,7 @@ bin/base64 encode_with_variant "hello WoRld 123 ~~~" urlsafe_no_padding
 # Output: aGVsbG8gV29SbGQgMTIzIH5-fg
 ```
 
-Encode urlsafe (Syntactic sugar for "bin/base64 encode_with_variant [CONTENT] 8"):
+Encode urlsafe (Syntactic sugar for "bin/base64 encode_with_variant [CONTENT] urlsafe_no_padding"):
 ```terminal
 bin/base64 encode_urlsafe [CONTENT]
 bin/base64 encode_urlsafe "hello WoRld 123 ~~~"
@@ -108,7 +108,7 @@ bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5-fg urlsafe_no_padding
 # Output: hello WoRld 123 ~~~
 ```
 
-Decode urlsafe (Syntactic sugar for "bin/base64 decode_with_variant [CONTENT] 8"):
+Decode urlsafe (Syntactic sugar for "bin/base64 decode_with_variant [CONTENT] urlsafe_no_padding"):
 ```terminal
 bin/base64 decode_urlsafe [CONTENT]
 bin/base64 decode_urlsafe aGVsbG8gV29SbGQgMTIzIH5-fg
