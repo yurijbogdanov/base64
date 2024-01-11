@@ -71,13 +71,13 @@ bin/base64 encode "hello WoRld 123 ~~~"
 Encode with variant:
 ```terminal
 bin/base64 encode_with_variant [CONTENT] [VARIANT]
-bin/base64 encode_with_variant "hello WoRld 123 ~~~" 1
+bin/base64 encode_with_variant "hello WoRld 123 ~~~" original
 # Output: aGVsbG8gV29SbGQgMTIzIH5+fg==
-bin/base64 encode_with_variant "hello WoRld 123 ~~~" 2
+bin/base64 encode_with_variant "hello WoRld 123 ~~~" original_no_padding
 # Output: aGVsbG8gV29SbGQgMTIzIH5+fg
-bin/base64 encode_with_variant "hello WoRld 123 ~~~" 4
+bin/base64 encode_with_variant "hello WoRld 123 ~~~" urlsafe
 # Output: aGVsbG8gV29SbGQgMTIzIH5-fg==
-bin/base64 encode_with_variant "hello WoRld 123 ~~~" 8
+bin/base64 encode_with_variant "hello WoRld 123 ~~~" urlsafe_no_padding
 # Output: aGVsbG8gV29SbGQgMTIzIH5-fg
 ```
 
@@ -98,13 +98,13 @@ bin/base64 decode aGVsbG8gV29SbGQgMTIzIH5+fg==
 Decode with variant:
 ```terminal
 bin/base64 decode_with_variant [CONTENT] [VARIANT]
-bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5+fg== 1
+bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5+fg== original
 # Output: hello WoRld 123 ~~~
-bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5+fg 2
+bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5+fg original_no_padding
 # Output: hello WoRld 123 ~~~
-bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5-fg== 4
+bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5-fg== urlsafe
 # Output: hello WoRld 123 ~~~
-bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5-fg 8
+bin/base64 decode_with_variant aGVsbG8gV29SbGQgMTIzIH5-fg urlsafe_no_padding
 # Output: hello WoRld 123 ~~~
 ```
 
