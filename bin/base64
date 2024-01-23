@@ -18,10 +18,10 @@ $variant = $argv[3] ?? null;
 if (null !== $variant) {
     $variant = (string) $variant;
     $variant = match ($variant) {
-        'original' => Base64::BASE64_VARIANT_ORIGINAL,
-        'original_no_padding' => Base64::BASE64_VARIANT_ORIGINAL_NO_PADDING,
-        'urlsafe' => Base64::BASE64_VARIANT_URLSAFE,
-        'urlsafe_no_padding' => Base64::BASE64_VARIANT_URLSAFE_NO_PADDING,
+        'original' => Base64::VARIANT_ORIGINAL,
+        'original_no_padding' => Base64::VARIANT_ORIGINAL_NO_PADDING,
+        'urlsafe' => Base64::VARIANT_URLSAFE,
+        'urlsafe_no_padding' => Base64::VARIANT_URLSAFE_NO_PADDING,
         default => 0,
     };
 }

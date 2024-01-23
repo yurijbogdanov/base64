@@ -17,18 +17,19 @@ Encode:
 ```terminal
 $content = 'hello WoRld 123 ~~~';
 $encodedContent = Base64::encode($content); // aGVsbG8gV29SbGQgMTIzIH5+fg==
+$encodedContent = base64_encode($content);  // aGVsbG8gV29SbGQgMTIzIH5+fg==
 ```
 
 Encode with variant:
 ```terminal
 $content = 'hello WoRld 123 ~~~';
-$encodedContent = Base64::encode($content, Base64::BASE64_VARIANT_ORIGINAL); // aGVsbG8gV29SbGQgMTIzIH5+fg==
-$encodedContent = Base64::encode($content, Base64::BASE64_VARIANT_ORIGINAL_NO_PADDING); // aGVsbG8gV29SbGQgMTIzIH5+fg
-$encodedContent = Base64::encode($content, Base64::BASE64_VARIANT_URLSAFE); // aGVsbG8gV29SbGQgMTIzIH5-fg==
-$encodedContent = Base64::encode($content, Base64::BASE64_VARIANT_URLSAFE_NO_PADDING); // aGVsbG8gV29SbGQgMTIzIH5-fg
+$encodedContent = Base64::encode($content, Base64::VARIANT_ORIGINAL); // aGVsbG8gV29SbGQgMTIzIH5+fg==
+$encodedContent = Base64::encode($content, Base64::VARIANT_ORIGINAL_NO_PADDING); // aGVsbG8gV29SbGQgMTIzIH5+fg
+$encodedContent = Base64::encode($content, Base64::VARIANT_URLSAFE); // aGVsbG8gV29SbGQgMTIzIH5-fg==
+$encodedContent = Base64::encode($content, Base64::VARIANT_URLSAFE_NO_PADDING); // aGVsbG8gV29SbGQgMTIzIH5-fg
 ```
 
-Encode urlsafe (Syntactic sugar for "Base64::encode($content, Base64::BASE64_VARIANT_URLSAFE_NO_PADDING)"):
+Encode urlsafe (Syntactic sugar for "Base64::encode($content, Base64::VARIANT_URLSAFE_NO_PADDING)"):
 ```terminal
 $content = 'hello WoRld 123 ~~~';
 $encodedContent = Base64::encodeUrlsafe($content); // aGVsbG8gV29SbGQgMTIzIH5-fg
@@ -38,17 +39,18 @@ Decode:
 ```terminal
 $content = 'aGVsbG8gV29SbGQgMTIzIH5+fg==';
 $decodedContent = Base64::decode($content); // hello WoRld 123 ~~~
+$decodedContent = base64_decode($content);  // hello WoRld 123 ~~~
 ```
 
 Decode with variant:
 ```terminal
-$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5+fg==", Base64::BASE64_VARIANT_ORIGINAL); // hello WoRld 123 ~~~
-$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5+fg", Base64::BASE64_VARIANT_ORIGINAL_NO_PADDING); // hello WoRld 123 ~~~
-$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5-fg==", Base64::BASE64_VARIANT_URLSAFE); // hello WoRld 123 ~~~
-$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5-fg", Base64::BASE64_VARIANT_URLSAFE_NO_PADDING); // hello WoRld 123 ~~~
+$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5+fg==", Base64::VARIANT_ORIGINAL); // hello WoRld 123 ~~~
+$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5+fg", Base64::VARIANT_ORIGINAL_NO_PADDING); // hello WoRld 123 ~~~
+$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5-fg==", Base64::VARIANT_URLSAFE); // hello WoRld 123 ~~~
+$decodedContent = Base64::decode("aGVsbG8gV29SbGQgMTIzIH5-fg", Base64::VARIANT_URLSAFE_NO_PADDING); // hello WoRld 123 ~~~
 ```
 
-Decode urlsafe (Syntactic sugar for "Base64::decode($content, Base64::BASE64_VARIANT_URLSAFE_NO_PADDING)"):
+Decode urlsafe (Syntactic sugar for "Base64::decode($content, Base64::VARIANT_URLSAFE_NO_PADDING)"):
 ```terminal
 $content = 'aGVsbG8gV29SbGQgMTIzIH5-fg';
 $decodedContent = Base64::decode($content); // hello WoRld 123 ~~~

@@ -7,39 +7,39 @@ namespace YB\Base64;
 final class Base64 implements Base64Interface
 {
     /**
-     * BASE64_VARIANT_ORIGINAL for standard (A-Za-z0-9/\+) Base64 encoding.
-     * BASE64_VARIANT_ORIGINAL_NO_PADDING for standard (A-Za-z0-9/\+) Base64 encoding, without = padding characters.
-     * BASE64_VARIANT_URLSAFE for URL-safe (A-Za-z0-9\-_) Base64 encoding.
-     * BASE64_VARIANT_URLSAFE_NO_PADDING for URL-safe (A-Za-z0-9\-_) Base64 encoding, without = padding characters.
+     * VARIANT_ORIGINAL for standard (A-Za-z0-9/\+) Base64 encoding.
+     * VARIANT_ORIGINAL_NO_PADDING for standard (A-Za-z0-9/\+) Base64 encoding, without = padding characters.
+     * VARIANT_URLSAFE for URL-safe (A-Za-z0-9\-_) Base64 encoding.
+     * VARIANT_URLSAFE_NO_PADDING for URL-safe (A-Za-z0-9\-_) Base64 encoding, without = padding characters.
      */
-    public const BASE64_VARIANT_ORIGINAL = 1;
-    public const BASE64_VARIANT_ORIGINAL_NO_PADDING = 2;
-    public const BASE64_VARIANT_URLSAFE = 4;
-    public const BASE64_VARIANT_URLSAFE_NO_PADDING = 8;
-    public const BASE64_VARIANTS = [
-        self::BASE64_VARIANT_ORIGINAL,
-        self::BASE64_VARIANT_ORIGINAL_NO_PADDING,
-        self::BASE64_VARIANT_URLSAFE,
-        self::BASE64_VARIANT_URLSAFE_NO_PADDING,
+    public const VARIANT_ORIGINAL = 1;
+    public const VARIANT_ORIGINAL_NO_PADDING = 2;
+    public const VARIANT_URLSAFE = 4;
+    public const VARIANT_URLSAFE_NO_PADDING = 8;
+    public const VARIANTS = [
+        self::VARIANT_ORIGINAL,
+        self::VARIANT_ORIGINAL_NO_PADDING,
+        self::VARIANT_URLSAFE,
+        self::VARIANT_URLSAFE_NO_PADDING,
     ];
 
     public static function encode(string $content, int $variant = null): string
     {
         if (null === $variant) {
-            $variant = self::BASE64_VARIANT_ORIGINAL;
+            $variant = self::VARIANT_ORIGINAL;
         }
 
-        if (!\in_array($variant, self::BASE64_VARIANTS, true)) {
+        if (!\in_array($variant, self::VARIANTS, true)) {
             throw new Exception\UnsupportedVariantException(sprintf('Unsupported variant: %d', $variant));
         }
 
         $content = base64_encode($content);
 
-        if ($variant & (self::BASE64_VARIANT_URLSAFE | self::BASE64_VARIANT_URLSAFE_NO_PADDING)) {
+        if ($variant & (self::VARIANT_URLSAFE | self::VARIANT_URLSAFE_NO_PADDING)) {
             $content = strtr($content, '+/', '-_');
         }
 
-        if ($variant & (self::BASE64_VARIANT_ORIGINAL_NO_PADDING | self::BASE64_VARIANT_URLSAFE_NO_PADDING)) {
+        if ($variant & (self::VARIANT_ORIGINAL_NO_PADDING | self::VARIANT_URLSAFE_NO_PADDING)) {
             $content = str_replace('=', '', $content);
         }
 
@@ -49,18 +49,18 @@ final class Base64 implements Base64Interface
     public static function decode(string $content, int $variant = null): string
     {
         if (null === $variant) {
-            $variant = self::BASE64_VARIANT_ORIGINAL;
+            $variant = self::VARIANT_ORIGINAL;
         }
 
-        if (!\in_array($variant, self::BASE64_VARIANTS, true)) {
+        if (!\in_array($variant, self::VARIANTS, true)) {
             throw new Exception\UnsupportedVariantException(sprintf('Unsupported variant: %d', $variant));
         }
 
-        if ($variant & (self::BASE64_VARIANT_URLSAFE | self::BASE64_VARIANT_URLSAFE_NO_PADDING)) {
+        if ($variant & (self::VARIANT_URLSAFE | self::VARIANT_URLSAFE_NO_PADDING)) {
             $content = strtr($content, '-_', '+/');
         }
 
-        if ($variant & (self::BASE64_VARIANT_ORIGINAL_NO_PADDING | self::BASE64_VARIANT_URLSAFE_NO_PADDING)) {
+        if ($variant & (self::VARIANT_ORIGINAL_NO_PADDING | self::VARIANT_URLSAFE_NO_PADDING)) {
             $remainder = \strlen($content) % 4;
             if ($remainder) {
                 $content .= str_repeat('=', 4 - $remainder);
@@ -77,11 +77,11 @@ final class Base64 implements Base64Interface
 
     public static function encodeUrlsafe(string $content): string
     {
-        return self::encode($content, self::BASE64_VARIANT_URLSAFE_NO_PADDING);
+        return self::encode($content, self::VARIANT_URLSAFE_NO_PADDING);
     }
 
     public static function decodeUrlsafe(string $content): string
     {
-        return self::decode($content, self::BASE64_VARIANT_URLSAFE_NO_PADDING);
+        return self::decode($content, self::VARIANT_URLSAFE_NO_PADDING);
     }
 }
