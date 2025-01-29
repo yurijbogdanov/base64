@@ -63,6 +63,9 @@ final class Base64Test extends TestCase
         Assert::assertEquals($expected, $result);
     }
 
+    /**
+     * @return array<int, null|int|string>[]
+     */
     public static function provideEncodeCases(): iterable
     {
         $content = '3e22b8a61994c7bcb8fdceaf8ca4991c4f51769ff0440a9b23fbbcd0678b32a640efa4fffbd3dff9061b3f1cf77518b798eafe9dee5ded4ef8628f873ed8d4ec';
@@ -78,6 +81,9 @@ final class Base64Test extends TestCase
         yield [$content, Base64::VARIANT_URLSAFE_NO_PADDING, 'PiK4phmUx7y4_c6vjKSZHE9Rdp_wRAqbI_u80GeLMqZA76T_-9Pf-QYbPxz3dRi3mOr-ne5d7U74Yo-HPtjU7A'];
     }
 
+    /**
+     * @return array<int, null|int|string>[]
+     */
     public static function provideDecodeCases(): iterable
     {
         $content = '0436086c175741c0234294c2d37f4dfa10ef9e07edea7fd6f9de988da1b2dd752856747bf593740c377c2e4415c4c29566eeae4c8ca02ecf07bfe8defde62f63';
@@ -93,6 +99,9 @@ final class Base64Test extends TestCase
         yield ['BDYIbBdXQcAjQpTC039N-hDvngft6n_W-d6YjaGy3XUoVnR79ZN0DDd8LkQVxMKVZu6uTIygLs8Hv-je_eYvYw', Base64::VARIANT_URLSAFE_NO_PADDING, $content];
     }
 
+    /**
+     * @return array<int, string>[]
+     */
     public static function provideEncodeUrlsafeCases(): iterable
     {
         yield [
@@ -101,6 +110,9 @@ final class Base64Test extends TestCase
         ];
     }
 
+    /**
+     * @return array<int, string>[]
+     */
     public static function provideDecodeUrlsafeCases(): iterable
     {
         yield [

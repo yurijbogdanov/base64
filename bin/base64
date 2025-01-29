@@ -7,16 +7,26 @@ if ('cli' !== \PHP_SAPI) {
     exit(1);
 }
 
-require dirname(__DIR__).'/vendor/autoload.php';
+function includeIfExists(string $file): bool
+{
+    return file_exists($file) && require $file;
+}
+
+if (
+    !includeIfExists(dirname(__DIR__).'/vendor/autoload.php')
+    && !includeIfExists(dirname(__DIR__).'/../../autoload.php')
+) {
+    fwrite(STDERR, "Install dependencies using Composer\n");
+    exit(1);
+}
 
 use YB\Base64\Base64;
 
-$command = (string) ($argv[1] ?? '');
+$command = $argv[1] ?? '';
 $content = $argv[2] ?? null;
 $variant = $argv[3] ?? null;
 
 if (null !== $variant) {
-    $variant = (string) $variant;
     $variant = match ($variant) {
         'original' => Base64::VARIANT_ORIGINAL,
         'original_no_padding' => Base64::VARIANT_ORIGINAL_NO_PADDING,
@@ -46,8 +56,7 @@ TEXT,
         default => sprintf('Command "%s" not found', $command),
     };
 } catch (\Throwable $e) {
-    echo sprintf('Error occurred: %s', $e->getMessage()), "\n";
-
+    fwrite(STDERR, "Error occurred: ".$e->getMessage()."\n");
     exit(1);
 }
 

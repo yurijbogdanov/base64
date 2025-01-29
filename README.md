@@ -1,9 +1,9 @@
 # PHP Base64 (encode/decode) Library
 
-[![Latest Stable Version](http://poser.pugx.org/yurijbogdanov/base64/v)](https://packagist.org/packages/yurijbogdanov/base64)
-[![Total Downloads](http://poser.pugx.org/yurijbogdanov/base64/downloads)](https://packagist.org/packages/yurijbogdanov/base64)
-[![License](http://poser.pugx.org/yurijbogdanov/base64/license)](https://packagist.org/packages/yurijbogdanov/base64)
-[![PHP Version Require](http://poser.pugx.org/yurijbogdanov/base64/require/php)](https://packagist.org/packages/yurijbogdanov/base64)
+
+[![Latest Stable Version](https://img.shields.io/packagist/v/yurijbogdanov/base64?style=flat)](https://packagist.org/packages/yurijbogdanov/base64)
+[![License](https://img.shields.io/packagist/l/yurijbogdanov/base64?style=flat)](https://packagist.org/packages/yurijbogdanov/base64)
+[![Total Downloads](https://img.shields.io/packagist/dt/yurijbogdanov/base64.svg?style=flat)](https://packagist.org/packages/yurijbogdanov/base64)
 
 
 ## Installation

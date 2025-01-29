@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace YB\Base64;
 
-final class Base64 implements Base64Interface
+class Base64
 {
     /**
      * VARIANT_ORIGINAL for standard (A-Za-z0-9/\+) Base64 encoding.
@@ -23,14 +23,17 @@ final class Base64 implements Base64Interface
         self::VARIANT_URLSAFE_NO_PADDING,
     ];
 
-    public static function encode(string $content, int $variant = null): string
+    /**
+     * @throws Exception\UnsupportedVariantException
+     */
+    public static function encode(string $content, ?int $variant = null): string
     {
         if (null === $variant) {
             $variant = self::VARIANT_ORIGINAL;
         }
 
         if (!\in_array($variant, self::VARIANTS, true)) {
-            throw new Exception\UnsupportedVariantException(sprintf('Unsupported variant: %d', $variant));
+            throw new Exception\UnsupportedVariantException(\sprintf('Unsupported variant: %d', $variant));
         }
 
         $content = base64_encode($content);
@@ -46,14 +49,18 @@ final class Base64 implements Base64Interface
         return $content;
     }
 
-    public static function decode(string $content, int $variant = null): string
+    /**
+     * @throws Exception\DecodeFailedException
+     * @throws Exception\UnsupportedVariantException
+     */
+    public static function decode(string $content, ?int $variant = null): string
     {
         if (null === $variant) {
             $variant = self::VARIANT_ORIGINAL;
         }
 
         if (!\in_array($variant, self::VARIANTS, true)) {
-            throw new Exception\UnsupportedVariantException(sprintf('Unsupported variant: %d', $variant));
+            throw new Exception\UnsupportedVariantException(\sprintf('Unsupported variant: %d', $variant));
         }
 
         if ($variant & (self::VARIANT_URLSAFE | self::VARIANT_URLSAFE_NO_PADDING)) {
@@ -75,11 +82,18 @@ final class Base64 implements Base64Interface
         return $content;
     }
 
+    /**
+     * @throws Exception\UnsupportedVariantException
+     */
     public static function encodeUrlsafe(string $content): string
     {
         return self::encode($content, self::VARIANT_URLSAFE_NO_PADDING);
     }
 
+    /**
+     * @throws Exception\DecodeFailedException
+     * @throws Exception\UnsupportedVariantException
+     */
     public static function decodeUrlsafe(string $content): string
     {
         return self::decode($content, self::VARIANT_URLSAFE_NO_PADDING);
